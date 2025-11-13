@@ -1,0 +1,3 @@
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/RayTracer/build/CMakeFiles/RayTracer.dir
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/RayTracer/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/RayTracer/build/CMakeFiles/ZERO_CHECK.dir

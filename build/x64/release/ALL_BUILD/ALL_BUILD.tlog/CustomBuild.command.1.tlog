@@ -1,0 +1,10 @@
+^C:\USERS\ABASEI\DOCUMENTS\GAMAGORA\SYNTHÈSE IMAGE 3D\RAYTRACER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" "-SC:/Users/abasei/Documents/Gamagora/Synthèse image 3D/RayTracer" "-BC:/Users/abasei/Documents/Gamagora/Synthèse image 3D/RayTracer/build" --check-stamp-file "C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/RayTracer/build/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
