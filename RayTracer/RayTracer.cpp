@@ -16,8 +16,8 @@
 #include <random>
 #include <omp.h>
 
-#define WIDTH 4000
-#define HEIGHT 4000
+#define WIDTH 1000
+#define HEIGHT 1000
 
 constexpr float PI = 3.14159265358979323846f;
 
@@ -267,98 +267,98 @@ Vec3 traceRay(const Rayon& rayonDepuisLePixel, const std::vector<SceneObject*>& 
 	return finalColor;
 }
 
-int main()
-{
-	std::vector<SceneObject*> scene;
-
-	//scene.push_back(new Sphere{ 5, 0, -95, 30, {255,0,0 } }); // sphère rouge au fond
-	//scene.push_back(new Sphere{ 0, 0, -80, 20, {0,255,0 } }); // sphère verte au fond
-	scene.push_back(new Sphere{ -5, 0, -50, 10, {0,0,255 } }); // Petite sphère bleue devant
-	//scene.push_back(new Sphere{ -5, 0, -40, 5, {255,0,0 } }); // Petite sphère rouge devant
-	scene.push_back(new Sphere{ 50, 10, -60, 10, {50,100,200 } });	// Petite sphère bleue
-	scene.push_back(new Sphere{ -60, -20, -50, 8, {230,10,10 } }); // Petite sphère rouge
-	scene.push_back(new Sphere{ 30, -50, -70, 30, {0,255,255 } }); // Grande sphère cyan
-	scene.push_back(new Sphere{ -30, 35, -40, 5, {255,255,255 } }); // Petite sphère blanche
-	scene.push_back(new Sphere{ 20, 58, -80, 40, {255,255,0 } }); // Sphere jaune en haut
-	scene.push_back(new Plane{ 0, 60, 0, {0,1,0}, {255,0,0} }); // Mur plafond
-	scene.push_back(new Plane{ 0, -60, 0, {0,1,0}, {255,255,0} }); // Mur sol
-	scene.push_back(new Plane{ 60, 0, 0, {1,0,0}, {0,0,255} }); //Mur droite
-	scene.push_back(new Plane{ -60, 0, 0, {1,0,0}, {0,255,0} }); //Mur gauche
-	scene.push_back(new Plane{ 0, 0, -80, {0,0,1}, {255,255,255} }); //Mur fond
-	scene.push_back(new Light{ -40, 20, -10, {500,500,500} }); // Lumière gauche
-
-
-	std::vector<PixelRGB> image(WIDTH * HEIGHT, PixelRGB::Black());
-
-	// Samples per pixel for anti-aliasing
-	constexpr int SAMPLES_PER_PIXEL = 16; // e.g., 16 samples per pixel
-
-	// Boucle principale : pour chaque pixel, lancer SAMPLES_PER_PIXEL rayons et faire la moyenne
-	const int samplesPerPixel = SAMPLES_PER_PIXEL;
-
-	// Determine number of threads
-	unsigned int hwThreads = std::thread::hardware_concurrency();
-	if (hwThreads == 0) hwThreads = 4;
-	unsigned int numThreads = std::min<unsigned int>(hwThreads, HEIGHT);
-
-	// Render using OpenMP parallel for over scanlines
-	// Each iteration of the outer loop (line) is independent
-	#pragma omp parallel for schedule(static)
-	for (int line = 0; line < HEIGHT; ++line) {
-		for (int column = 0; column < WIDTH; ++column)
-		{
-			Vec3 accumColor{ 0,0,0 };
-
-			// Random sampling inside the pixel area
-			for (int s = 0; s < samplesPerPixel; ++s) {
-				float ox = random_float();
-				float oy = random_float();
-
-				Rayon rayon = mkCameraRayon((float)line, (float)column, ox, oy)();
-				Vec3 sampleColor = traceRay(rayon, scene);
-				accumColor._x += sampleColor._x;
-				accumColor._y += sampleColor._y;
-				accumColor._z += sampleColor._z;
-			}
-
-			// Moyenne des échantillons
-			Vec3 finalColor = {
-				accumColor._x / float(samplesPerPixel),
-				accumColor._y / float(samplesPerPixel),
-				accumColor._z / float(samplesPerPixel)
-			};
-
-			image[line * WIDTH + column] = PixelRGB{
-				std::min(finalColor._x, 255.0f),
-				std::min(finalColor._y, 255.0f),
-				std::min(finalColor._z, 255.0f)
-			};
-		}
-	}
-
-	float maxPixel = maximumPixel(image);
-	if (maxPixel == 0) maxPixel = 1; // Protection contre la division par zéro
-
-	std::vector<unsigned char> imgData(WIDTH * HEIGHT * 3);
-	for (int i = 0; i < WIDTH * HEIGHT; ++i) {
-		// Apply simple gamma correction (gamma=2) after normalization
-		float rnorm = (image[i].r / maxPixel);
-		float gnorm = (image[i].g / maxPixel);
-		float bnorm = (image[i].b / maxPixel);
-		rnorm = std::sqrt(std::max(0.0f, rnorm));
-		gnorm = std::sqrt(std::max(0.0f, gnorm));
-		bnorm = std::sqrt(std::max(0.0f, bnorm));
-
-		imgData[i * 3 + 0] = static_cast<unsigned char>(std::min(255.0f, rnorm * 255.0f));
-		imgData[i * 3 + 1] = static_cast<unsigned char>(std::min(255.0f, gnorm * 255.0f));
-		imgData[i * 3 + 2] = static_cast<unsigned char>(std::min(255.0f, bnorm * 255.0f));
-	}
-	int result = stbi_write_png("C:/Users/abasei/Documents/Gamagora/output.png", WIDTH, HEIGHT, 3, imgData.data(), WIDTH * 3);
-	if (result)
-		std::cout << "Image sauvegardee avec succes !" << std::endl;
-	else
-		std::cout << "Erreur lors de la sauvegarde de l'image !" << std::endl;
-
-	// Libération mémoire sommaire
-	for (SceneObject* obj : scene) delete obj;
-}
+//int main()
+//{
+//	std::vector<SceneObject*> scene;
+//
+//	//scene.push_back(new Sphere{ 5, 0, -95, 30, {255,0,0 } }); // sphère rouge au fond
+//	//scene.push_back(new Sphere{ 0, 0, -80, 20, {0,255,0 } }); // sphère verte au fond
+//	scene.push_back(new Sphere{ -5, 0, -50, 10, {0,0,255 } }); // Petite sphère bleue devant
+//	//scene.push_back(new Sphere{ -5, 0, -40, 5, {255,0,0 } }); // Petite sphère rouge devant
+//	scene.push_back(new Sphere{ 50, 10, -60, 10, {50,100,200 } });	// Petite sphère bleue
+//	scene.push_back(new Sphere{ -60, -20, -50, 8, {230,10,10 } }); // Petite sphère rouge
+//	scene.push_back(new Sphere{ 30, -50, -70, 30, {0,255,255 } }); // Grande sphère cyan
+//	scene.push_back(new Sphere{ -30, 35, -40, 5, {255,255,255 } }); // Petite sphère blanche
+//	scene.push_back(new Sphere{ 20, 58, -80, 40, {255,255,0 } }); // Sphere jaune en haut
+//	scene.push_back(new Plane{ 0, 60, 0, {0,1,0}, {255,0,0} }); // Mur plafond
+//	scene.push_back(new Plane{ 0, -60, 0, {0,1,0}, {255,255,0} }); // Mur sol
+//	scene.push_back(new Plane{ 60, 0, 0, {1,0,0}, {0,0,255} }); //Mur droite
+//	scene.push_back(new Plane{ -60, 0, 0, {1,0,0}, {0,255,0} }); //Mur gauche
+//	scene.push_back(new Plane{ 0, 0, -80, {0,0,1}, {255,255,255} }); //Mur fond
+//	scene.push_back(new Light{ -40, 20, -10, {500,500,500} }); // Lumière gauche
+//
+//
+//	std::vector<PixelRGB> image(WIDTH * HEIGHT, PixelRGB::Black());
+//
+//	// Samples per pixel for anti-aliasing
+//	constexpr int SAMPLES_PER_PIXEL = 16; // e.g., 16 samples per pixel
+//
+//	// Boucle principale : pour chaque pixel, lancer SAMPLES_PER_PIXEL rayons et faire la moyenne
+//	const int samplesPerPixel = SAMPLES_PER_PIXEL;
+//
+//	// Determine number of threads
+//	unsigned int hwThreads = std::thread::hardware_concurrency();
+//	if (hwThreads == 0) hwThreads = 4;
+//	unsigned int numThreads = std::min<unsigned int>(hwThreads, HEIGHT);
+//
+//	// Render using OpenMP parallel for over scanlines
+//	// Each iteration of the outer loop (line) is independent
+//	#pragma omp parallel for schedule(static)
+//	for (int line = 0; line < HEIGHT; ++line) {
+//		for (int column = 0; column < WIDTH; ++column)
+//		{
+//			Vec3 accumColor{ 0,0,0 };
+//
+//			// Random sampling inside the pixel area
+//			for (int s = 0; s < samplesPerPixel; ++s) {
+//				float ox = random_float();
+//				float oy = random_float();
+//
+//				Rayon rayon = mkCameraRayon((float)line, (float)column, ox, oy)();
+//				Vec3 sampleColor = traceRay(rayon, scene);
+//				accumColor._x += sampleColor._x;
+//				accumColor._y += sampleColor._y;
+//				accumColor._z += sampleColor._z;
+//			}
+//
+//			// Moyenne des échantillons
+//			Vec3 finalColor = {
+//				accumColor._x / float(samplesPerPixel),
+//				accumColor._y / float(samplesPerPixel),
+//				accumColor._z / float(samplesPerPixel)
+//			};
+//
+//			image[line * WIDTH + column] = PixelRGB{
+//				std::min(finalColor._x, 255.0f),
+//				std::min(finalColor._y, 255.0f),
+//				std::min(finalColor._z, 255.0f)
+//			};
+//		}
+//	}
+//
+//	float maxPixel = maximumPixel(image);
+//	if (maxPixel == 0) maxPixel = 1; // Protection contre la division par zéro
+//
+//	std::vector<unsigned char> imgData(WIDTH * HEIGHT * 3);
+//	for (int i = 0; i < WIDTH * HEIGHT; ++i) {
+//		// Apply simple gamma correction (gamma=2) after normalization
+//		float rnorm = (image[i].r / maxPixel);
+//		float gnorm = (image[i].g / maxPixel);
+//		float bnorm = (image[i].b / maxPixel);
+//		rnorm = std::sqrt(std::max(0.0f, rnorm));
+//		gnorm = std::sqrt(std::max(0.0f, gnorm));
+//		bnorm = std::sqrt(std::max(0.0f, bnorm));
+//
+//		imgData[i * 3 + 0] = static_cast<unsigned char>(std::min(255.0f, rnorm * 255.0f));
+//		imgData[i * 3 + 1] = static_cast<unsigned char>(std::min(255.0f, gnorm * 255.0f));
+//		imgData[i * 3 + 2] = static_cast<unsigned char>(std::min(255.0f, bnorm * 255.0f));
+//	}
+//	int result = stbi_write_png("C:/Users/abasei/Documents/Gamagora/output.png", WIDTH, HEIGHT, 3, imgData.data(), WIDTH * 3);
+//	if (result)
+//		std::cout << "Image sauvegardee avec succes !" << std::endl;
+//	else
+//		std::cout << "Erreur lors de la sauvegarde de l'image !" << std::endl;
+//
+//	// Libération mémoire sommaire
+//	for (SceneObject* obj : scene) delete obj;
+//}

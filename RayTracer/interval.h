@@ -23,6 +23,17 @@ public:
 		return min < x && x < max;
 	}
 
+	double clamp(double x) const {
+		if (x < min) return min;
+		if (x > max) return max;
+		return x;
+	}
+
+	interval expand(double delta) const {
+		auto padding = delta / 2;
+		return interval(min - padding, max + padding);
+	}
+
 	static const interval empty, universe;
 };
 
