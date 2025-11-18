@@ -1,2 +1,3 @@
 ﻿  RayTracer2.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207\include\filesystem(12): warning STL4038: The contents of <filesystem> are available only with C++17 or later.
   RayTracer.vcxproj -> C:\Users\abasei\Documents\Gamagora\Synthèse image 3D\RayTracer\x64\Debug\RayTracer.exe

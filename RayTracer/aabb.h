@@ -21,9 +21,10 @@ public:
 	}
 
     aabb(const aabb& box0, const aabb& box1) {
+        // Create the enclosing aabb by combining intervals per axis
         x = interval(box0.x, box1.x);
-        x = interval(box0.y, box1.y);
-        x = interval(box0.z, box1.z);
+        y = interval(box0.y, box1.y);
+        z = interval(box0.z, box1.z);
     }
 
 	const interval& axis_interval(int n) const {
