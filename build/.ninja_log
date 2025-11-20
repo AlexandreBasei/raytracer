@@ -1,0 +1,13 @@
+# ninja log v6
+9	2491	7853373850854853	NewRaytracer/CMakeFiles/NewRaytracer.dir/RayTracer2.cpp.obj	a97563338ceb580f
+2494	3133	7853373875694686	NewRaytracer/NewRaytracer.exe	55070b638fc6b6fe
+9	344	7853381081408123	build.ninja	c1dfb5bd4aa97679
+8	340	7853381081408123	build.ninja	c1dfb5bd4aa97679
+8	2605	7853382785272605	NewRaytracer/CMakeFiles/NewRaytracer.dir/RayTracer2.cpp.obj	a97563338ceb580f
+2608	3266	7853382811271028	NewRaytracer/NewRaytracer.exe	55070b638fc6b6fe
+8	2667	7853383312158582	NewRaytracer/CMakeFiles/NewRaytracer.dir/RayTracer2.cpp.obj	a97563338ceb580f
+2670	3230	7853383338766270	NewRaytracer/NewRaytracer.exe	55070b638fc6b6fe
+8	2645	7853383855675949	NewRaytracer/CMakeFiles/NewRaytracer.dir/RayTracer2.cpp.obj	a97563338ceb580f
+2648	3190	7853383882062828	NewRaytracer/NewRaytracer.exe	55070b638fc6b6fe
+10	2955	7853392388548398	NewRaytracer/CMakeFiles/NewRaytracer.dir/RayTracer2.cpp.obj	a97563338ceb580f
+2958	3535	7853392418028981	NewRaytracer/NewRaytracer.exe	55070b638fc6b6fe

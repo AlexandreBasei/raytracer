@@ -1,0 +1,5 @@
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/NewRaytracer/out/build/x64-debug/CMakeFiles/edit_cache.dir
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/NewRaytracer/out/build/x64-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/NewRaytracer/out/build/x64-debug/NewRaytracer/CMakeFiles/NewRaytracer.dir
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/NewRaytracer/out/build/x64-debug/NewRaytracer/CMakeFiles/edit_cache.dir
+C:/Users/abasei/Documents/Gamagora/Synthèse image 3D/NewRaytracer/out/build/x64-debug/NewRaytracer/CMakeFiles/rebuild_cache.dir
